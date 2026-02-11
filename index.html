@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="موقع فتاوى إسلامية - إفقه في دينك من أهل العلم" />
+    <title>📖 موقع الفتاوى الإسلامية</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- يمكنك إضافة favicon لاحقًا -->
+    <!-- <link rel="icon" href="favicon.ico" type="image/x-icon" /> -->
+</head>
+<body>
+
+    <!-- =========================
+         HEADER
+    ========================= -->
+    <header>
+        <button class="menu-btn" aria-label="فتح/إغلاق القائمة الجانبية" type="button" onclick="toggleMenu()">☰</button>
+        
+        <div class="header-text">
+            <h1>📖 موقع الفتاوى الإسلامية</h1>
+            <p>إفقه في دينك – الفتوى من أهل العلم</p>
+        </div>
+    </header>
+
+    <!-- =========================
+         SIDE MENU (القائمة الجانبية)
+    ========================= -->
+    <aside id="sideMenu" class="side-menu">
+        <a href="#" onclick="showSection('fatwas'); toggleMenu()">📜 الفتاوى</a>
+        <a href="#" onclick="showSection('ai'); toggleMenu()">🤖 الذكاء الاصطناعي</a>
+        <hr />
+        <a href="#" onclick="showSunna(); toggleMenu()">📖 السنة</a>
+        <a href="#" onclick="showSection('definitions'); toggleMenu()">📚 تعريفات</a>
+    </aside>
+
+    <!-- =========================
+         MAIN NAVIGATION
+    ========================= -->
+    <nav class="main-nav">
+        <button type="button" onclick="showSection('fatwas')">الفتاوى</button>
+        <button type="button" onclick="showSection('ai')">الذكاء الاصطناعي</button>
+        <button type="button" onclick="showSunna()">السنة</button>
+    </nav>
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================= -->
+
+    <!-- قسم الفتاوى -->
+    <main>
+        <section id="fatwas" class="content-section">
+            <h2>🔍 البحث في الفتاوى</h2>
+            
+            <input 
+                type="search" 
+                id="searchInput" 
+                placeholder="ابحث عن فتوى..." 
+                aria-label="البحث في الفتاوى"
+                oninput="searchFatwa()"
+            />
+
+            <div class="categories">
+                <button type="button" onclick="filterCategory('all')" class="active">الكل</button>
+                <button type="button" onclick="filterCategory('salat')">الصلاة</button>
+                <button type="button" onclick="filterCategory('siyam')">الصيام</button>
+                <button type="button" onclick="filterCategory('fiqh')">فقه عام</button>
+            </div>
+
+            <div id="fatwaList" class="fatwa-container"></div>
+        </section>
+
+        <!-- قسم السنة -->
+        <section id="sunna" class="content-section" style="display: none;">
+            <h2>📖 أسئلة وأجوبة في السنة النبوية</h2>
+            <div id="sunnaList" class="fatwa-container"></div>
+        </section>
+
+        <!-- قسم الذكاء الاصطناعي -->
+        <section id="ai" class="content-section" style="display: none;">
+            <h2>🤖 اسأل الذكاء الاصطناعي</h2>
+            
+            <p class="note warning">
+                ⚠️ تنبيه هام: الإجابات المُولدة هنا لا تغني عن الرجوع إلى أهل العلم والمراجع الموثوقة
+            </p>
+
+            <textarea 
+                id="question" 
+                rows="4" 
+                placeholder="اكتب سؤالك هنا..." 
+                aria-label="اكتب سؤالك الشرعي"
+            ></textarea>
+
+            <button type="button" onclick="answerQuestion()">إرسال السؤال</button>
+
+            <div id="answer" class="answer-box"></div>
+        </section>
+    </main>
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+    <footer>
+        <p>© 2026 – موقع الفتاوى الإسلامية</p>
+    </footer>
+
+    <!-- =========================
+         JAVASCRIPT FILES
+    ========================= -->
+    <script src="js/fatwas.js"></script>
+    <script src="js/sunna.js"></script>
+    <script src="js/main.js"></script>
+
+    <!-- Menu toggle logic -->
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById("sideMenu");
+            if (!menu) return;
+
+            if (menu.style.right === "0px" || menu.style.right === "") {
+                menu.style.right = "-260px";
+            } else {
+                menu.style.right = "0px";
+            }
+        }
+
+        // إغلاق القائمة عند النقر خارجها
+        document.addEventListener("click", function (e) {
+            const menu = document.getElementById("sideMenu");
+            const btn = document.querySelector(".menu-btn");
+
+            if (!menu || !btn) return;
+
+            const isOpen = menu.style.right === "0px" || menu.style.right === "";
+            const clickedOutside = !menu.contains(e.target) && !btn.contains(e.target);
+
+            if (isOpen && clickedOutside) {
+                menu.style.right = "-260px";
+            }
+        });
+    </script>
+
+</body>
+               </html>
